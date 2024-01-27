@@ -10,6 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -6368227056814360126, guid: 0d96e617ea7052c46b6f71542015aaae,
         type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: Controller
+      objectReference: {fileID: 0}
+    - target: {fileID: -6368227056814360126, guid: 0d96e617ea7052c46b6f71542015aaae,
+        type: 3}
       propertyPath: m_NeverAutoSwitchControlSchemes
       value: 1
       objectReference: {fileID: 0}
