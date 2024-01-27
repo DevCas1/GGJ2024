@@ -6,12 +6,14 @@ using UnityEngine.InputSystem;
 
 public class AnyButtonToNextScene : MonoBehaviour
 {
-    public Scene nextScene;
+    public string nextScene;
 
-    public void SendToNextScene()
+    public void SendToNextScene(InputAction.CallbackContext context)
     {
-        if (nextScene == null) return;
-        SceneManager.LoadScene(nextScene.name);
+        if (!context.performed) return;
+        Debug.Log("Checking for nextScene");
+        if (nextScene == "") {Debug.Log("nextScene not found!"); return;}
+        SceneManager.LoadScene(nextScene);
     }
 
 }
