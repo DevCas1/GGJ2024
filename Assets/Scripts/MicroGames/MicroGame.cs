@@ -6,16 +6,17 @@ public abstract class MicroGame : MonoBehaviour
 {
     public event EventHandler OnMicroGameComplete;
 
-    protected PlayerInput[] players;
+    protected PlayerInput player;
 
-    public virtual void InitMicroGame(ref PlayerInput[] players)
+    public virtual void InitMicroGame(MicroGame parent, PlayerInput player)
     {
-        this.players = players;
+        parent = this;
+        this.player = player;
     }
 
     protected abstract void RunMicroGame();
 
-    protected void MicroGameComplete()
+    public virtual void MicroGameComplete()
     {
         OnMicroGameComplete.Invoke(this, null);
     }

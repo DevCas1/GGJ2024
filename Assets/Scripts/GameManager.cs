@@ -1,30 +1,34 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
-    public event EventHandler OnStartGame;
-    public event EventHandler OnTurnComplete;
+    public UnityEvent OnStartGame;
+    public UnityEvent OnRoundComplete;
+    public UnityEvent OnTurnComplete;
 
     public PlayerInputManager PlayerInputManager;
     public MicroGame[] MicroGames;
 
-    private int maxTurns = 0;
+    [SerializeField]
+    private PlayerInput[] players = new PlayerInput[4];
+
+    [SerializeField]
+    private int maxRounds;
+    private int currentRound;
     private int currentTurn;
-    private PlayerInput[] players;
-    private int playerCount => players.Length;
     private MicroGame activeMicroGame;
 
-    public void Init(int maxTurns)
+    public void Init(int maxRounds)
     {
-        this.maxTurns = maxTurns;
+        this.maxRounds = maxRounds;
     }
-
 
     public void StartGame()
     {
-        if (maxTurns == 0)
+        if (maxRounds == 0)
         {
             Debug.LogError("Can't start the game before calling TurnManager.Init()!");
             return;
@@ -45,38 +49,86 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void RunTurn()
+    private void Start()
     {
-        if (currentTurn >= maxTurns)
+        if (players.Length < 4)
+            Debug.LogWarning("Less than 4 players have been referenced!");
+
+        currentRound = 1;
+        currentTurn = 1;
+
+        Debug.Log("Starting game with Round 1");
+
+        RunRound();
+    }
+
+    private void RunRound()
+    {
+        if (currentRound > maxRounds)
         {
             // Announce end of game
+            Debug.Log("Game Ended!");
+            return;
         }
 
-        // Announce turn
+        if (currentRound == maxRounds)
+        {
+            // Announce last round
+            Debug.Log("This is the last round!");
+        }
 
+        currentTurn = 1;
+
+        RunTurn();
+    }
+
+    private void RunTurn()
+    {
+        Debug.Log("Running turn " + currentTurn);
 
         ChooseMicroGame();
         StartMicroGame();
-
-        currentTurn++;
-        OnTurnComplete.Invoke(this, null);
     }
 
     private void ChooseMicroGame()
     {
-        activeMicroGame = MicroGames[0];
+        activeMicroGame = MicroGames[UnityEngine.Random.Range(0, MicroGames.Length)];
+
+        // Effect for choosing MicroGame
+
         activeMicroGame.OnMicroGameComplete += OnMicroGameComplete;
     }
 
     private void StartMicroGame()
     {
-        activeMicroGame.InitMicroGame(ref players);
+        activeMicroGame.InitMicroGame(null, players[currentTurn - 1]);
     }
 
     private void OnMicroGameComplete(object sender, EventArgs e)
     {
         activeMicroGame.OnMicroGameComplete -= OnMicroGameComplete;
-
         activeMicroGame = null;
+
+        EndTurn();
+    }
+
+    private void EndTurn()
+    {
+        if (currentTurn == players.Length)
+        {
+            EndRound();
+            return;
+        }
+
+        currentTurn++;
+        RunTurn();
+    }
+
+    private void EndRound()
+    {
+        currentTurn = 1;
+        currentRound++;
+
+        RunRound();
     }
 }

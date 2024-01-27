@@ -6,23 +6,17 @@ public class HammerTime : MicroGame
 {
     public GameObject HammerHelperPrefab;
 
-    public override void InitMicroGame(ref PlayerInput[] players)
+    public override void InitMicroGame(MicroGame parent, PlayerInput player)
     {
-        // Set references and values
+        base.InitMicroGame(this, player);
 
         // Instantiate helper-objects
-        for (int index = 0; index < players.Length; index ++)
-        {
-            var helper = Instantiate(HammerHelperPrefab, players[index].transform.position, quaternion.identity).GetComponent<HammerTimeHelper>();
-            helper.playerInput = players[index];
-            // players[index].onActionTriggered += helper.Test;
-        }
-        
-        RunMicroGame();
+        HammerTimeHelper instance = Instantiate(HammerHelperPrefab, player.transform.position, quaternion.identity, player.transform).GetComponent<HammerTimeHelper>();
+
+        // Set references and values
+        instance.Instantiator = this;
     }
 
-    protected override void RunMicroGame()
-    {
-        throw new System.NotImplementedException();
-    }
+    // Added because of inheritance-requirement
+    protected override void RunMicroGame(){}
 }
