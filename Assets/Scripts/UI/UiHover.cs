@@ -17,7 +17,6 @@ public class UiHover : MonoBehaviour
         baseYoffset = rTransform.localPosition.y;
     }
 
-    // Update is called once per frame
     void Update()
     {
         Vector3 pos = rTransform.localPosition;
