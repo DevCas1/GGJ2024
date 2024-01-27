@@ -14,14 +14,14 @@ public class UiHover : MonoBehaviour
     void Awake()
     {
         rTransform = GetComponent<RectTransform>();
-        baseYoffset = rTransform.position.y;
+        baseYoffset = rTransform.localPosition.y;
     }
 
     // Update is called once per frame
     void Update()
     {
         Vector3 pos = rTransform.localPosition;
-        pos.y = hoverAmplitude * Mathf.Cos(Time.time * hoverSpeed) - baseYoffset / 2;
+        pos.y = hoverAmplitude * Mathf.Cos(Time.time * hoverSpeed) + baseYoffset;
         rTransform.localPosition = pos;
     }
 }
