@@ -15,7 +15,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "FaceButtons",
+                    "name": "FaceButton",
                     "type": "Value",
                     "id": "35899e43-04fb-465b-b6c3-48c0ff443278",
                     "expectedControlType": "Vector2",
@@ -61,7 +61,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "FaceButtons",
+                    "action": "FaceButton",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -72,7 +72,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "FaceButtons",
+                    "action": "FaceButton",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -83,7 +83,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "FaceButtons",
+                    "action": "FaceButton",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -94,7 +94,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "FaceButtons",
+                    "action": "FaceButton",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -105,7 +105,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "FaceButtons",
+                    "action": "FaceButton",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -200,5 +200,17 @@
             ]
         }
     ],
-    "controlSchemes": []
+    "controlSchemes": [
+        {
+            "name": "Controller",
+            "bindingGroup": "Controller",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
 }
