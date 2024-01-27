@@ -1,16 +1,16 @@
 using Unity.Mathematics;
 using UnityEngine.InputSystem;
 
-public class HammerTime : MicroGame
+public class BombDrop : MicroGame
 {
-    public HammerTimeHelper HammerHelperPrefab;
+    public BombDropHelper BombHelperPrefab;
 
     public override void InitMicroGame(MicroGame parent, PlayerInput player)
     {
         base.InitMicroGame(this, player);
 
         // Instantiate helper-objects
-        HammerTimeHelper instance = Instantiate(HammerHelperPrefab, player.transform.position, quaternion.identity, player.transform).GetComponent<HammerTimeHelper>();
+        BombDropHelper instance = Instantiate(BombHelperPrefab, player.transform.position, quaternion.identity, player.transform).GetComponent<BombDropHelper>();
 
         // Set references and values
         instance.Instantiator = this;
