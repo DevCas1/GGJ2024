@@ -4,17 +4,19 @@ using UnityEngine.InputSystem;
 
 public class HammerTime : MicroGame
 {
-    public GameObject HammerPrefab;
+    public GameObject HammerHelperPrefab;
 
-    public override void InitMicroGame(PlayerInput[] players)
+    public override void InitMicroGame(ref PlayerInput[] players)
     {
-        // Instantiate helper-objects
-        for (int index = 0; index < PlayerCount; index ++)
-        {
-            Instantiate(HammerPrefab, players[PlayerCount].transform.position, quaternion.identity);
-        }
-        
         // Set references and values
+
+        // Instantiate helper-objects
+        for (int index = 0; index < players.Length; index ++)
+        {
+            var helper = Instantiate(HammerHelperPrefab, players[index].transform.position, quaternion.identity).GetComponent<HammerTimeHelper>();
+            helper.playerInput = players[index];
+            // players[index].onActionTriggered += helper.Test;
+        }
         
         RunMicroGame();
     }

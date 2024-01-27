@@ -6,16 +6,11 @@ public abstract class MicroGame : MonoBehaviour
 {
     public event EventHandler OnMicroGameComplete;
 
-    protected int PlayerCount
-    {
-        get => PlayerCount;
+    protected PlayerInput[] players;
 
-        private set { PlayerCount = value; }
-    }
-
-    public virtual void InitMicroGame(PlayerInput[] players)
+    public virtual void InitMicroGame(ref PlayerInput[] players)
     {
-        PlayerCount = players.Length;
+        this.players = players;
     }
 
     protected abstract void RunMicroGame();

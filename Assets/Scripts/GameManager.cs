@@ -12,12 +12,15 @@ public class GameManager : MonoBehaviour
 
     private int maxTurns = 0;
     private int currentTurn;
+    private PlayerInput[] players;
+    private int playerCount => players.Length;
     private MicroGame activeMicroGame;
 
     public void Init(int maxTurns)
     {
         this.maxTurns = maxTurns;
     }
+
 
     public void StartGame()
     {
@@ -30,6 +33,14 @@ public class GameManager : MonoBehaviour
         if (MicroGames.Length < 1)
         {
             Debug.LogError("Can't start without any microgames set!");
+            return;
+        }
+
+        players = FindObjectsOfType<PlayerInput>();
+
+        if (players.Length < 1 )
+        {
+            Debug.LogError("Game cannot be played with fewer than 1 player!");
             return;
         }
     }
@@ -59,7 +70,7 @@ public class GameManager : MonoBehaviour
 
     private void StartMicroGame()
     {
-        activeMicroGame.InitMicroGame(FindObjectsOfType<PlayerInput>());
+        activeMicroGame.InitMicroGame(ref players);
     }
 
     private void OnMicroGameComplete(object sender, EventArgs e)
