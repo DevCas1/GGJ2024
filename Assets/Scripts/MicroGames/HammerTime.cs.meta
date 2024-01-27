@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: a62dc101f273dec418f43a41b7914676
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - HammerPrefab: {fileID: 6749668111906407513, guid: 804e12d8e95fc824286d7b7417e68718,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
