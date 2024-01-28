@@ -13,10 +13,11 @@ public class GameManager : MonoBehaviour
 
     public PlayerInputManager PlayerInputManager;
     public MicroGame[] MicroGames;
+    [HideInInspector]
+    public int[] pointCollectors = {0, 0, 0, 0};
 
     [SerializeField]
     private PlayerInput[] players = new PlayerInput[4];
-    private List<PointCollector> pointCollectors = new(4);
 
     [SerializeField]
     private int maxRounds;
@@ -57,9 +58,6 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Game cannot be played with fewer than 1 player!");
             return;
         }
-        
-        for (int index = 0; index < players.Length; index++)
-            pointCollectors[index] = players[index].GetComponent<PointCollector>();
     }
 
     private void Start()
@@ -151,17 +149,30 @@ public class GameManager : MonoBehaviour
         RunRound();
     }
 
-    public bool RegisterPoint(PointCollector collector, Point point)
+    public bool RegisterPoint(Transform collector, Point point)
     {
-        int collectorIndex = pointCollectors.IndexOf(collector);
+        // int collectorIndex = collector.name[^1] - 1;
 
-        if (collectorIndex < 0)
+        // Debug.Log($"Player {collector.name} ({collectorIndex} collected {point.Value} points");
+
+        // pointCollectors[collectorIndex] += point.Value;
+
+        switch(collector.name)
         {
-            Debug.LogError($"Could not find Collector {collector.transform.name} in list!");
-            return false;
+            case "Player 1":
+                pointCollectors[0] += point.Value;
+                break;
+            case "Player 2":
+                pointCollectors[1] += point.Value;
+                break;
+            case "Player 3":
+                pointCollectors[2] += point.Value;
+                break;
+            case "Player 4":
+                pointCollectors[3] += point.Value;
+                break;
         }
 
-        pointCollectors[collectorIndex].Points += point.Value;
         Destroy(point.gameObject);
         return true;
     }

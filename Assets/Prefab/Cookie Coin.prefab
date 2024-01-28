@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8856666364586375720}
   - component: {fileID: 1709424713807826828}
   - component: {fileID: 6271632003143087015}
+  - component: {fileID: 949063546293497280}
   m_Layer: 0
   m_Name: Cookie Coin
   m_TagString: Untagged
@@ -105,3 +106,16 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.15
   m_Center: {x: 0, y: 0.0000000037252903, z: 0}
+--- !u!114 &949063546293497280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5068605242118521931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e86e41fd0cc84947bf1be25d6272983, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Value: 1
