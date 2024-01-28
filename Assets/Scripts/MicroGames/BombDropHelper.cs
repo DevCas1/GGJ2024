@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class BombDropHelper : MonoBehaviour
 {
     public UnityEvent OnBombExplode;
+    public UnityEvent OnBombSpawn;
     
     [Header("Throw Values")]
     [Min(0.0001f)]
@@ -59,6 +60,7 @@ public class BombDropHelper : MonoBehaviour
         BombRigidbody.GetComponent<Collider>().isTrigger = true;
         detonationTime = -1;
         StartBombCountdown();
+        OnBombSpawn?.Invoke();
     }
 
     void Update()

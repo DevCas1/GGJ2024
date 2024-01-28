@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/StartScene-Hidde.unity
+    guid: 84d71daa80933be4aaf2313a7f146588
+  - enabled: 1
+    path: Assets/Scenes/TestScene-Hidde.unity
+    guid: fc6278c53a66a9845aeee93180686901
+  - enabled: 1
+    path: Assets/Scenes/EndScene-Hidde.unity
+    guid: e9424d15bda2e2241b14f204b6394f2d
+  - enabled: 0
     path: Assets/Scenes/TestScene Sjouke.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects: {}

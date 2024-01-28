@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -20,6 +21,13 @@ public class GameManager : MonoBehaviour
     private int currentRound;
     private int currentTurn;
     private MicroGame activeMicroGame;
+
+    void Awake()
+    {
+
+        DontDestroyOnLoad(this.gameObject);
+
+    }
 
     public void Init(int maxRounds)
     {
@@ -68,6 +76,7 @@ public class GameManager : MonoBehaviour
         {
             // Announce end of game
             Debug.Log("Game Ended!");
+            SceneManager.LoadScene("EndScene-Hidde");
             return;
         }
 
