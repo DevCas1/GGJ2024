@@ -100,9 +100,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  RotateSpeedIncrementMultiplier: 0.25
-  RotateSpeedDecreaseMultiplier: 0.01
-  ThrowDistanceMultiplier: 100
+  RotateSpeedIncrementMultiplier: 10000
+  RotateSpeedDecreaseMultiplier: 1
+  ThrowDistanceMultiplier: 50
   UpwardAngle: 0.3
   BombExplodeTimeRangeMin: 4
   BombExplodeTimeRangeMax: 8

@@ -85,7 +85,7 @@ public class BombDropHelper : MonoBehaviour
         }
 
         if (isCharging)
-            transform.Rotate(new(0, rotationSpeed, 0));
+            transform.Rotate(new(0, rotationSpeed * Time.deltaTime, 0));
 
         if (exploded)
             CheckForSleepingTargets();
@@ -98,11 +98,11 @@ public class BombDropHelper : MonoBehaviour
         Debug.Log($"Bomb explodes in {detonationTime - Time.time} seconds");
     }
 
-    private void IncreaseRotationSpeed() => rotationSpeed += 1 * RotateSpeedIncrementMultiplier;
+    private void IncreaseRotationSpeed() => rotationSpeed += Time.deltaTime * RotateSpeedIncrementMultiplier;
 
     private void DecreaseRotationSpeed()
     {
-        rotationSpeed -= 1 * RotateSpeedDecreaseMultiplier;
+        rotationSpeed -= Time.deltaTime * RotateSpeedDecreaseMultiplier;
 
         if (rotationSpeed < 0)
             rotationSpeed = 0;
@@ -116,7 +116,7 @@ public class BombDropHelper : MonoBehaviour
         
         Cursor.SetActive(false);
         BombPivot.SetParent(null, true);
-        BombRigidbody.AddForce(rotationSpeed * ThrowDistanceMultiplier * Vector3.Slerp(transform.forward, Vector3.up, UpwardAngle)); // TODO: Make throw work
+        BombRigidbody.AddForce((Time.deltaTime * rotationSpeed) * ThrowDistanceMultiplier * Vector3.Slerp(transform.forward, Vector3.up, UpwardAngle)); // TODO: Make throw work
         Debug.Log("Bomb thrown");
     }
 
@@ -153,7 +153,7 @@ public class BombDropHelper : MonoBehaviour
     private void UpdateBombBlink()
     {
         float timeTilDetonation = detonationTime - Time.time;
-        Color blinkColor = new Color(10, 0, 0, 1);
+        Color blinkColor = new(10, 0, 0, 1);
 
         if (timeTilDetonation < FastBlinkTimeTilExplosion)
             Bomb.material.SetColor("_EmissionColor", Color.Lerp(Color.black, blinkColor, Mathf.Sin(Time.time * FastBlinkSpeed)));
