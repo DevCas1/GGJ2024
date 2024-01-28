@@ -61,7 +61,12 @@ MonoBehaviour:
   BombExplosionCheckLayers:
     serializedVersion: 2
     m_Bits: 64
-  Bomb: {fileID: 287999477990632373}
+  SlowBlinkTimeTilExplosion: 4
+  SlowBlinkSpeed: 1
+  FastBlinkTimeTilExplosion: 2
+  FastBlinkSpeed: 3
+  Bomb: {fileID: 1876078801157617446}
+  BombRigidbody: {fileID: 287999477990632373}
   BombPivot: {fileID: 56181574628831020}
   Cursor: {fileID: 1843422726478649263}
   Instantiator: {fileID: 0}
@@ -223,6 +228,12 @@ PrefabInstance:
 --- !u!4 &739161425619717193 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3e4f0bdcd33014749b7afcc959a1ad99,
+    type: 3}
+  m_PrefabInstance: {fileID: 993252741059013538}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1876078801157617446 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 3e4f0bdcd33014749b7afcc959a1ad99,
     type: 3}
   m_PrefabInstance: {fileID: 993252741059013538}
   m_PrefabAsset: {fileID: 0}

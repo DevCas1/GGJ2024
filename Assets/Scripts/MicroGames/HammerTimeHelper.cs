@@ -38,10 +38,10 @@ public class HammerTimeHelper : MonoBehaviour
     {
         RotateHammer();
 
-        if (!smashCharging && Gamepad.current.buttonSouth.wasPressedThisFrame)
+        if (Gamepad.current != null & !smashCharging && Gamepad.current.buttonSouth.wasPressedThisFrame)
             SmashStart();
 
-        if (smashCharging && Gamepad.current.buttonSouth.wasReleasedThisFrame)
+        if (Gamepad.current != null && smashCharging && Gamepad.current.buttonSouth.wasReleasedThisFrame)
             EndSmash();
 
         if (smashComplete)
