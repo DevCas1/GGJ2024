@@ -1,0 +1,1 @@
+[UnityEngine.RequireComponent(typeof(UnityEngine.SphereCollider))] public class Point : UnityEngine.MonoBehaviour { public int Value; }

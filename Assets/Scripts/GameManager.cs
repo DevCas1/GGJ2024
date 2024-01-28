@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +13,8 @@ public class GameManager : MonoBehaviour
 
     public PlayerInputManager PlayerInputManager;
     public MicroGame[] MicroGames;
+    [HideInInspector]
+    public int[] pointCollectors = {0, 0, 0, 0};
 
     [SerializeField]
     private PlayerInput[] players = new PlayerInput[4];
@@ -20,6 +24,13 @@ public class GameManager : MonoBehaviour
     private int currentRound;
     private int currentTurn;
     private MicroGame activeMicroGame;
+
+    void Awake()
+    {
+
+        DontDestroyOnLoad(this.gameObject);
+
+    }
 
     public void Init(int maxRounds)
     {
@@ -68,6 +79,7 @@ public class GameManager : MonoBehaviour
         {
             // Announce end of game
             Debug.Log("Game Ended!");
+            SceneManager.LoadScene("EndScene-Hidde");
             return;
         }
 
@@ -92,7 +104,12 @@ public class GameManager : MonoBehaviour
 
     private void ChooseMicroGame()
     {
-        activeMicroGame = MicroGames[UnityEngine.Random.Range(0, MicroGames.Length)];
+        Debug.Log("Choosing Micro Game...");
+
+        int randomIndex = UnityEngine.Random.Range(0, MicroGames.Length);
+        activeMicroGame = MicroGames[randomIndex];
+
+        Debug.Log("Random index: " + randomIndex);
 
         // Effect for choosing MicroGame
 
@@ -130,5 +147,33 @@ public class GameManager : MonoBehaviour
         currentRound++;
 
         RunRound();
+    }
+
+    public bool RegisterPoint(Transform collector, Point point)
+    {
+        // int collectorIndex = collector.name[^1] - 1;
+
+        // Debug.Log($"Player {collector.name} ({collectorIndex} collected {point.Value} points");
+
+        // pointCollectors[collectorIndex] += point.Value;
+
+        switch(collector.name)
+        {
+            case "Player 1":
+                pointCollectors[0] += point.Value;
+                break;
+            case "Player 2":
+                pointCollectors[1] += point.Value;
+                break;
+            case "Player 3":
+                pointCollectors[2] += point.Value;
+                break;
+            case "Player 4":
+                pointCollectors[3] += point.Value;
+                break;
+        }
+
+        Destroy(point.gameObject);
+        return true;
     }
 }

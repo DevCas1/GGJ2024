@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a62dc101f273dec418f43a41b7914676, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HammerHelperPrefab: {fileID: 236825301882213741, guid: 925ae0d0de08721439e68236d7854d30,
+  HammerHelperPrefab: {fileID: 4393981557974916349, guid: 925ae0d0de08721439e68236d7854d30,
     type: 3}

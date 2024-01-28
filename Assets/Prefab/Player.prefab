@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: -6368227056814360126}
   - component: {fileID: 7908411766966461931}
   - component: {fileID: 8961462089849729752}
-  m_Layer: 0
+  - component: {fileID: 4977289944047926606}
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,6 +118,20 @@ CapsuleCollider:
   m_Height: 0.66
   m_Direction: 1
   m_Center: {x: 0, y: 0.33, z: 0}
+--- !u!114 &4977289944047926606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 240440265238790257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ddab8dc1589d1a40b32fed70dd83ef6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameManager: {fileID: 0}
+  Points: 0
 --- !u!1 &5018512303277658621
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,7 +142,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5806479761305279717}
   - component: {fileID: 6872514067189359625}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -288,6 +303,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player_stand
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c215c496a1e2c7e43a3589d06ecd14f8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
