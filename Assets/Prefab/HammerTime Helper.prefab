@@ -48,11 +48,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHammerRotation: 135
-  MaxChargeTime: 3
+  MaxChargeTime: 2.5
   ChargeStrengthMultiplier: 450
   UpwardAngle: 0.65
   HammerPivot: {fileID: 1380454330030666128}
   Arrow: {fileID: 1843422726478649263}
+  Instantiator: {fileID: 0}
 --- !u!1 &2094054417372556757
 GameObject:
   m_ObjectHideFlags: 0

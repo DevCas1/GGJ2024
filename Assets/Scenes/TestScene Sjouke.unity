@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -239,7 +239,7 @@ PrefabInstance:
     - target: {fileID: 246751325789027735, guid: 9a7fba8caa7f36c418aabfff36a098a3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.971
+      value: 0.997
       objectReference: {fileID: 0}
     - target: {fileID: 246751325789027735, guid: 9a7fba8caa7f36c418aabfff36a098a3,
         type: 3}
@@ -325,7 +325,7 @@ GameObject:
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!81 &330585544
 AudioListener:
@@ -788,7 +788,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!114 &832575518
 MonoBehaviour:
@@ -833,7 +833,7 @@ PrefabInstance:
     - target: {fileID: 519137347476076340, guid: 37bdd242cfb78ae44ab37aac1ea19439,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.958
+      value: 1.002
       objectReference: {fileID: 0}
     - target: {fileID: 519137347476076340, guid: 37bdd242cfb78ae44ab37aac1ea19439,
         type: 3}
@@ -1158,7 +1158,7 @@ PrefabInstance:
     - target: {fileID: 8139907404095194429, guid: 73d88ed604c816544bce19f2a91226f1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.534
+      value: 0.56
       objectReference: {fileID: 0}
     - target: {fileID: 8139907404095194429, guid: 73d88ed604c816544bce19f2a91226f1,
         type: 3}
@@ -1226,7 +1226,7 @@ PrefabInstance:
     - target: {fileID: 4592259423508369307, guid: d88ae3d4517ae834f88f21a0d5a53ecf,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.38
+      value: 0.567
       objectReference: {fileID: 0}
     - target: {fileID: 4592259423508369307, guid: d88ae3d4517ae834f88f21a0d5a53ecf,
         type: 3}
@@ -1236,7 +1236,7 @@ PrefabInstance:
     - target: {fileID: 4592259423508369307, guid: d88ae3d4517ae834f88f21a0d5a53ecf,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.65
+      value: -3.65
       objectReference: {fileID: 0}
     - target: {fileID: 4592259423508369307, guid: d88ae3d4517ae834f88f21a0d5a53ecf,
         type: 3}
@@ -1347,12 +1347,13 @@ MonoBehaviour:
   PlayerInputManager: {fileID: 1896397318}
   MicroGames:
   - {fileID: 5787433604948762927, guid: e6b7a5d09ec3aae47a5f8c2e76c3a37d, type: 3}
+  - {fileID: 6402157874895780663, guid: 767339f2a1dee184888fc37efffde222, type: 3}
   players:
   - {fileID: 1846048989}
   - {fileID: 1270836390}
   - {fileID: 1526327737}
   - {fileID: 327485269}
-  maxRounds: 1
+  maxRounds: 2
 --- !u!114 &1896397318
 MonoBehaviour:
   m_ObjectHideFlags: 0
