@@ -37,7 +37,7 @@ public class BombDropHelper : MonoBehaviour
     public GameObject Cursor;
 
     [HideInInspector]
-    public BombDrop Instantiator;
+    public MicroGame Instantiator;
 
     private bool isCharging = true;
     private float rotationSpeed = 0;

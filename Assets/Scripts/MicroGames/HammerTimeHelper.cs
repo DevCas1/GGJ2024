@@ -19,10 +19,11 @@ public class HammerTimeHelper : MonoBehaviour
     public GameObject Arrow;
     
     [HideInInspector]
-    public HammerTime Instantiator;
+    public MicroGame Instantiator;
 
     private bool canRotate = true;
     private bool smashCharging = false;
+    private bool smashComplete = false;
     private float chargeStartTime;
     private Rigidbody smashedRigidbody;
 
@@ -30,6 +31,7 @@ public class HammerTimeHelper : MonoBehaviour
     {
         canRotate = true;
         smashCharging = false;
+        smashComplete = false;
     }
 
     private void Update()
@@ -39,10 +41,10 @@ public class HammerTimeHelper : MonoBehaviour
         if (!smashCharging && Gamepad.current.buttonSouth.wasPressedThisFrame)
             SmashStart();
 
-        if (smashCharging && !Gamepad.current.buttonSouth.wasReleasedThisFrame)
+        if (smashCharging && Gamepad.current.buttonSouth.wasReleasedThisFrame)
             EndSmash();
 
-        if (!canRotate && !smashCharging)
+        if (smashComplete)
             CheckSmashedRigidbody();
     }
 
@@ -76,9 +78,14 @@ public class HammerTimeHelper : MonoBehaviour
         HammerPivot.DOLocalRotate(Vector3.zero, 0.15f, RotateMode.FastBeyond360).OnComplete(() =>
         {
             smashedRigidbody = GetComponentInParent<Rigidbody>();
-            smashedRigidbody.AddForce(ChargeStrengthMultiplier * chargeTime * Vector3.Slerp(transform.forward, Vector3.up, UpwardAngle));
+            smashComplete = true;
 
-            Destroy(gameObject);
+            smashedRigidbody.AddForce(ChargeStrengthMultiplier * chargeTime * Vector3.Slerp(transform.forward, Vector3.up, UpwardAngle));
+            
+            Renderer[] renderers = GetComponentsInChildren<Renderer>();
+
+            for (int index = 0; index < renderers.Length; index++)
+                renderers[index].enabled = false;
         });
     }
 
@@ -87,7 +94,10 @@ public class HammerTimeHelper : MonoBehaviour
         if (smashedRigidbody.IsSleeping())
         {
             if (Instantiator != null)
+            {
                 Instantiator.MicroGameComplete();
+                Destroy(gameObject);
+            }
             else
                 Debug.LogWarning("HammerTimeHelper was not instantiated through HammerTime MicroGame, or the reference was cleared before parent.MicroGameComplete() could be called!");
         }

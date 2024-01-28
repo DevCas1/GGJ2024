@@ -52,9 +52,9 @@ MonoBehaviour:
   RotateSpeedIncrementMultiplier: 0.25
   RotateSpeedDecreaseMultiplier: 0.005
   ThrowDistanceMultiplier: 100
-  UpwardAngle: 0.6
-  BombExplodeTimeRangeMin: 7
-  BombExplodeTimeRangeMax: 10
+  UpwardAngle: 0.3
+  BombExplodeTimeRangeMin: 4
+  BombExplodeTimeRangeMax: 8
   BombExplosionForce: 400
   BombExplosionRadius: 2
   BombExplosionUpwardModifier: 1
