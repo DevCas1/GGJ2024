@@ -17,6 +17,7 @@ public class ResultsHandler : MonoBehaviour
     public TextMeshProUGUI finalsequenceText;
     public TextMeshProUGUI finalwinningsText;
     public TextMeshProUGUI finalgoesTo;
+    public Image podium;
     public TextMeshProUGUI firstPlace;
     public TextMeshProUGUI secondPlace;
     public TextMeshProUGUI thirdPlace;
@@ -52,6 +53,7 @@ public class ResultsHandler : MonoBehaviour
         finalsequenceText.gameObject.SetActive(false);
         finalwinningsText.gameObject.SetActive(false);
         finalgoesTo.gameObject.SetActive(false);
+        podium.gameObject.SetActive(false);
         firstPlace.gameObject.SetActive(false);
         secondPlace.gameObject.SetActive(false);
         thirdPlace.gameObject.SetActive(false);
@@ -185,6 +187,7 @@ public class ResultsHandler : MonoBehaviour
         finalwinningsText.gameObject.SetActive(true);
         finalgoesTo.gameObject.SetActive(true);
         yield return new WaitForSeconds(4.0f);
+        podium.gameObject.SetActive(true);
         fourthPlace.text = "Loser " + (playerPoints.IndexOf(playerPoints.Min()) + 1);
         finalsequenceText.gameObject.SetActive(false);
         finalgoesTo.gameObject.SetActive(false);
@@ -205,6 +208,7 @@ public class ResultsHandler : MonoBehaviour
         firstPlace.gameObject.SetActive(true);
         playerPoints[playerPoints.IndexOf(playerPoints.Min())] += 999;
         yield return new WaitForSeconds (6f);
+        DeactivateAllTexts();
         SceneManager.LoadScene(0);
 
         yield return null;
