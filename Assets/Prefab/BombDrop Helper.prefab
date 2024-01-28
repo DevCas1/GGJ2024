@@ -62,9 +62,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   SlowBlinkTimeTilExplosion: 4
-  SlowBlinkSpeed: 1
+  SlowBlinkSpeed: 10
   FastBlinkTimeTilExplosion: 2
-  FastBlinkSpeed: 3
+  FastBlinkSpeed: 30
   Bomb: {fileID: 1876078801157617446}
   BombRigidbody: {fileID: 287999477990632373}
   BombPivot: {fileID: 56181574628831020}

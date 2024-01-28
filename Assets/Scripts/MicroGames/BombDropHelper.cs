@@ -59,8 +59,6 @@ public class BombDropHelper : MonoBehaviour
         BombRigidbody.GetComponent<Collider>().isTrigger = true;
         detonationTime = -1;
         StartBombCountdown();
-
-        Debug.Log(Bomb.material.GetPropertyNames(MaterialPropertyType.Matrix));
     }
 
     void Update()
@@ -75,8 +73,11 @@ public class BombDropHelper : MonoBehaviour
 
         if (detonationTime > 0)
         {
-            if (Time.time >= detonationTime && !exploded)
-                ExplodeBomb();
+            if (Time.time >= detonationTime)
+            {
+                if (!exploded)
+                    ExplodeBomb();
+            }
             else
                 UpdateBombBlink();
         }
@@ -119,6 +120,9 @@ public class BombDropHelper : MonoBehaviour
 
     private void ExplodeBomb()
     {
+        if (isCharging)
+            ThrowBomb();
+
         Debug.Log("Bomb exploded");
 
         BombRigidbody.isKinematic = true;
@@ -147,10 +151,12 @@ public class BombDropHelper : MonoBehaviour
     private void UpdateBombBlink()
     {
         float timeTilDetonation = detonationTime - Time.time;
-        if (timeTilDetonation < SlowBlinkTimeTilExplosion && timeTilDetonation > FastBlinkTimeTilExplosion)
-        {
-            //Bomb.material.GetColor("")
-        }
+        Color blinkColor = new Color(10, 0, 0, 1);
+
+        if (timeTilDetonation < FastBlinkTimeTilExplosion)
+            Bomb.material.SetColor("_EmissionColor", Color.Lerp(Color.black, blinkColor, Mathf.Sin(Time.time * FastBlinkSpeed)));
+        else if (timeTilDetonation < SlowBlinkTimeTilExplosion)
+            Bomb.material.SetColor("_EmissionColor", Color.Lerp(Color.black, blinkColor, Mathf.Sin(Time.time * SlowBlinkSpeed)));
     }
 
     private void CheckForSleepingTargets()
