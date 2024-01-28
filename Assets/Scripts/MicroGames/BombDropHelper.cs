@@ -23,7 +23,7 @@ public class BombDropHelper : MonoBehaviour
     public float BombExplodeTimeRangeMin = 7;
     [Range(1, 10)]
     public float BombExplodeTimeRangeMax = 10;
-    [Range(0.01f, 100)]
+    [Range(0.01f, 1000)]
     public float BombExplosionForce = 1;
     [Range(0.1f, 5)]
     public float BombExplosionRadius = 2;
@@ -42,11 +42,16 @@ public class BombDropHelper : MonoBehaviour
     private bool isCharging = true;
     private float rotationSpeed = 0;
     private float detonationTime;
+    private int hitPlayersCount;
     private Collider[] hitPlayers = new Collider[4];
+    private bool exploded;
 
     void Start()
     {
         Bomb.isKinematic = true;
+        Bomb.GetComponent<Collider>().isTrigger = true;
+        detonationTime = -1;
+        StartBombCountdown();
     }
 
     void Update()
@@ -59,17 +64,21 @@ public class BombDropHelper : MonoBehaviour
         if (isCharging && Gamepad.current.buttonEast.wasPressedThisFrame)
             ThrowBomb();
 
-        if (Time.time >= detonationTime)
+        if (detonationTime > 0 && Time.time >= detonationTime && !exploded)
             ExplodeBomb();
 
         if (isCharging)
             transform.Rotate(new(0, rotationSpeed, 0));
+
+        if (exploded)
+            CheckForSleepingTargets();
     }
 
     private void StartBombCountdown()
     {
         isCharging = true;
         detonationTime = Time.time + Random.Range(BombExplodeTimeRangeMin, BombExplodeTimeRangeMax);
+        Debug.Log($"Bomb explodes in {detonationTime - Time.time} seconds");
     }
 
     private void IncreaseRotationSpeed() => rotationSpeed += 1 * RotateSpeedIncrementMultiplier;
@@ -86,7 +95,9 @@ public class BombDropHelper : MonoBehaviour
     {
         isCharging = false;
         Bomb.isKinematic = false;
+        Bomb.GetComponent<Collider>().isTrigger = false;
         
+        Cursor.SetActive(false);
         BombPivot.SetParent(null, true);
         Bomb.AddForce(rotationSpeed * ThrowDistanceMultiplier * Vector3.Slerp(transform.forward, Vector3.up, UpwardAngle)); // TODO: Make throw work
         Debug.Log("Bomb thrown");
@@ -94,17 +105,45 @@ public class BombDropHelper : MonoBehaviour
 
     private void ExplodeBomb()
     {
+        Debug.Log("Bomb exploded");
+
         Bomb.isKinematic = true;
 
         Bomb.Sleep();
         OnBombExplode?.Invoke();
 
         for (int index = 0; 
-             index < Physics.OverlapSphereNonAlloc(Bomb.transform.position, BombExplosionRadius, hitPlayers, BombExplosionCheckLayers); 
+             index < (hitPlayersCount = Physics.OverlapSphereNonAlloc(Bomb.transform.position, BombExplosionRadius, hitPlayers, BombExplosionCheckLayers)); 
              index++)
         {            
             if (hitPlayers[index].TryGetComponent<Rigidbody>(out var rigidbody))
+            {
                 rigidbody.AddExplosionForce(BombExplosionForce, BombPivot.position, BombExplosionRadius, BombExplosionUpwardModifier);
+                Debug.Log($"Bomb hit {rigidbody.transform.root.name}");
+            }
+                
+        }
+
+        exploded = true;
+
+        Destroy(BombPivot.gameObject);
+        Destroy(Bomb.gameObject);
+    }
+
+    private void CheckForSleepingTargets()
+    {
+        int activeRigidbodies = 0;
+
+        for (int index = 0; index < hitPlayersCount; index++)
+        {
+            if (!hitPlayers[index].attachedRigidbody.IsSleeping())
+                activeRigidbodies++;
+        }
+
+        if (activeRigidbodies == 0)
+        {
+            Instantiator.MicroGameComplete();
+            Destroy(gameObject);
         }
     }
 }
