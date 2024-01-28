@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1378,7 +1378,6 @@ MonoBehaviour:
       m_Calls: []
   PlayerInputManager: {fileID: 1896397318}
   MicroGames:
-  - {fileID: 5787433604948762927, guid: e6b7a5d09ec3aae47a5f8c2e76c3a37d, type: 3}
   - {fileID: 6402157874895780663, guid: 767339f2a1dee184888fc37efffde222, type: 3}
   players:
   - {fileID: 1846048989}

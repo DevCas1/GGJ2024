@@ -31,8 +31,15 @@ public class BombDropHelper : MonoBehaviour
     public float BombExplosionUpwardModifier = 1;
     public LayerMask BombExplosionCheckLayers;
 
+    [Header("Bomb Blink Values")]
+    public float SlowBlinkTimeTilExplosion = 4;
+    public float SlowBlinkSpeed = 1;
+    public float FastBlinkTimeTilExplosion = 2;
+    public float FastBlinkSpeed = 3;
+
     [Header("References")]
-    public Rigidbody Bomb;
+    public Renderer Bomb;
+    public Rigidbody BombRigidbody;
     public Transform BombPivot;
     public GameObject Cursor;
 
@@ -48,24 +55,32 @@ public class BombDropHelper : MonoBehaviour
 
     void Start()
     {
-        Bomb.isKinematic = true;
-        Bomb.GetComponent<Collider>().isTrigger = true;
+        BombRigidbody.isKinematic = true;
+        BombRigidbody.GetComponent<Collider>().isTrigger = true;
         detonationTime = -1;
         StartBombCountdown();
     }
 
     void Update()
     {
-        if (isCharging && Gamepad.current.buttonSouth.wasPressedThisFrame)
+        if (Gamepad.current != null && isCharging && Gamepad.current.buttonSouth.wasPressedThisFrame)
             IncreaseRotationSpeed();
         else if (rotationSpeed > 0)
             DecreaseRotationSpeed();
 
-        if (isCharging && Gamepad.current.buttonEast.wasPressedThisFrame)
+        if (Gamepad.current != null && isCharging && Gamepad.current.buttonEast.wasPressedThisFrame)
             ThrowBomb();
 
-        if (detonationTime > 0 && Time.time >= detonationTime && !exploded)
-            ExplodeBomb();
+        if (detonationTime > 0)
+        {
+            if (Time.time >= detonationTime)
+            {
+                if (!exploded)
+                    ExplodeBomb();
+            }
+            else
+                UpdateBombBlink();
+        }
 
         if (isCharging)
             transform.Rotate(new(0, rotationSpeed, 0));
@@ -94,26 +109,29 @@ public class BombDropHelper : MonoBehaviour
     private void ThrowBomb()
     {
         isCharging = false;
-        Bomb.isKinematic = false;
-        Bomb.GetComponent<Collider>().isTrigger = false;
+        BombRigidbody.isKinematic = false;
+        BombRigidbody.GetComponent<Collider>().isTrigger = false;
         
         Cursor.SetActive(false);
         BombPivot.SetParent(null, true);
-        Bomb.AddForce(rotationSpeed * ThrowDistanceMultiplier * Vector3.Slerp(transform.forward, Vector3.up, UpwardAngle)); // TODO: Make throw work
+        BombRigidbody.AddForce(rotationSpeed * ThrowDistanceMultiplier * Vector3.Slerp(transform.forward, Vector3.up, UpwardAngle)); // TODO: Make throw work
         Debug.Log("Bomb thrown");
     }
 
     private void ExplodeBomb()
     {
+        if (isCharging)
+            ThrowBomb();
+
         Debug.Log("Bomb exploded");
 
-        Bomb.isKinematic = true;
+        BombRigidbody.isKinematic = true;
 
-        Bomb.Sleep();
+        BombRigidbody.Sleep();
         OnBombExplode?.Invoke();
 
         for (int index = 0; 
-             index < (hitPlayersCount = Physics.OverlapSphereNonAlloc(Bomb.transform.position, BombExplosionRadius, hitPlayers, BombExplosionCheckLayers)); 
+             index < (hitPlayersCount = Physics.OverlapSphereNonAlloc(BombRigidbody.transform.position, BombExplosionRadius, hitPlayers, BombExplosionCheckLayers)); 
              index++)
         {            
             if (hitPlayers[index].TryGetComponent<Rigidbody>(out var rigidbody))
@@ -127,7 +145,18 @@ public class BombDropHelper : MonoBehaviour
         exploded = true;
 
         Destroy(BombPivot.gameObject);
-        Destroy(Bomb.gameObject);
+        Destroy(BombRigidbody.gameObject);
+    }
+
+    private void UpdateBombBlink()
+    {
+        float timeTilDetonation = detonationTime - Time.time;
+        Color blinkColor = new Color(10, 0, 0, 1);
+
+        if (timeTilDetonation < FastBlinkTimeTilExplosion)
+            Bomb.material.SetColor("_EmissionColor", Color.Lerp(Color.black, blinkColor, Mathf.Sin(Time.time * FastBlinkSpeed)));
+        else if (timeTilDetonation < SlowBlinkTimeTilExplosion)
+            Bomb.material.SetColor("_EmissionColor", Color.Lerp(Color.black, blinkColor, Mathf.Sin(Time.time * SlowBlinkSpeed)));
     }
 
     private void CheckForSleepingTargets()
