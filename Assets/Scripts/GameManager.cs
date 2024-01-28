@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -14,6 +15,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private PlayerInput[] players = new PlayerInput[4];
+    private List<PointCollector> pointCollectors = new(4);
 
     [SerializeField]
     private int maxRounds;
@@ -47,6 +49,9 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Game cannot be played with fewer than 1 player!");
             return;
         }
+        
+        for (int index = 0; index < players.Length; index++)
+            pointCollectors[index] = players[index].GetComponent<PointCollector>();
     }
 
     private void Start()
@@ -135,5 +140,20 @@ public class GameManager : MonoBehaviour
         currentRound++;
 
         RunRound();
+    }
+
+    public bool RegisterPoint(PointCollector collector, Point point)
+    {
+        int collectorIndex = pointCollectors.IndexOf(collector);
+
+        if (collectorIndex < 0)
+        {
+            Debug.LogError($"Could not find Collector {collector.transform.name} in list!");
+            return false;
+        }
+
+        pointCollectors[collectorIndex].Points += point.Value;
+        Destroy(point.gameObject);
+        return true;
     }
 }
