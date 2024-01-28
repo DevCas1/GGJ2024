@@ -47,10 +47,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf54f3901f384a4d923e25dc4115a77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnHammerHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6038987753486991358}
+        m_TargetAssemblyTypeName: UnityEngine.Transform, UnityEngine
+        m_MethodName: DetachChildren
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3833091242952316690}
+        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   MaxHammerRotation: 135
   MaxChargeTime: 2.5
   ChargeStrengthMultiplier: 450
-  UpwardAngle: 0.65
+  UpwardAngle: 0.5
   HammerPivot: {fileID: 1380454330030666128}
   Arrow: {fileID: 1843422726478649263}
   Instantiator: {fileID: 0}
@@ -255,7 +282,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 9026655834403868191, guid: 804e12d8e95fc824286d7b7417e68718,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1017566461865387056}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 804e12d8e95fc824286d7b7417e68718, type: 3}
 --- !u!4 &1380454330030666128 stripped
@@ -269,4 +300,95 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7335923601488999756, guid: 804e12d8e95fc824286d7b7417e68718,
     type: 3}
   m_PrefabInstance: {fileID: 3354008519306064353}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6038987753486991358 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9026655834403868191, guid: 804e12d8e95fc824286d7b7417e68718,
+    type: 3}
+  m_PrefabInstance: {fileID: 3354008519306064353}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7598647168266959830
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6038987753486991358}
+    m_Modifications:
+    - target: {fileID: 6647930401379658948, guid: 99d890d285497da4ea550f8dca4e49f0,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7119566678635833518, guid: 99d890d285497da4ea550f8dca4e49f0,
+        type: 3}
+      propertyPath: m_Name
+      value: BonkVFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452558091515731942, guid: 99d890d285497da4ea550f8dca4e49f0,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.50000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452558091515731942, guid: 99d890d285497da4ea550f8dca4e49f0,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452558091515731942, guid: 99d890d285497da4ea550f8dca4e49f0,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452558091515731942, guid: 99d890d285497da4ea550f8dca4e49f0,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452558091515731942, guid: 99d890d285497da4ea550f8dca4e49f0,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452558091515731942, guid: 99d890d285497da4ea550f8dca4e49f0,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452558091515731942, guid: 99d890d285497da4ea550f8dca4e49f0,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452558091515731942, guid: 99d890d285497da4ea550f8dca4e49f0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452558091515731942, guid: 99d890d285497da4ea550f8dca4e49f0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452558091515731942, guid: 99d890d285497da4ea550f8dca4e49f0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 99d890d285497da4ea550f8dca4e49f0, type: 3}
+--- !u!4 &1017566461865387056 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7452558091515731942, guid: 99d890d285497da4ea550f8dca4e49f0,
+    type: 3}
+  m_PrefabInstance: {fileID: 7598647168266959830}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &3833091242952316690 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6647930401379658948, guid: 99d890d285497da4ea550f8dca4e49f0,
+    type: 3}
+  m_PrefabInstance: {fileID: 7598647168266959830}
   m_PrefabAsset: {fileID: 0}

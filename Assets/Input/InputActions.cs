@@ -220,6 +220,45 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""b8c14de8-1061-444d-8651-e6ab311ff0f2"",
+            ""actions"": [
+                {
+                    ""name"": ""MenuConfirm"",
+                    ""type"": ""Button"",
+                    ""id"": ""c6f4050c-3bd1-49ac-9d1f-d52accc690d1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""45aef797-aa58-42db-9fdd-720034657851"",
+                    ""path"": ""<Keyboard>/anyKey"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MenuConfirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""67e960af-fd22-43d7-8453-62873ff0c4e6"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""MenuConfirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -242,6 +281,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_Player_FaceButton = m_Player.FindAction("FaceButton", throwIfNotFound: true);
         m_Player_Confirm = m_Player.FindAction("Confirm", throwIfNotFound: true);
         m_Player_Cancel = m_Player.FindAction("Cancel", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_MenuConfirm = m_UI.FindAction("MenuConfirm", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -369,6 +411,52 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // UI
+    private readonly InputActionMap m_UI;
+    private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
+    private readonly InputAction m_UI_MenuConfirm;
+    public struct UIActions
+    {
+        private @InputActions m_Wrapper;
+        public UIActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @MenuConfirm => m_Wrapper.m_UI_MenuConfirm;
+        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        public void AddCallbacks(IUIActions instance)
+        {
+            if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
+            @MenuConfirm.started += instance.OnMenuConfirm;
+            @MenuConfirm.performed += instance.OnMenuConfirm;
+            @MenuConfirm.canceled += instance.OnMenuConfirm;
+        }
+
+        private void UnregisterCallbacks(IUIActions instance)
+        {
+            @MenuConfirm.started -= instance.OnMenuConfirm;
+            @MenuConfirm.performed -= instance.OnMenuConfirm;
+            @MenuConfirm.canceled -= instance.OnMenuConfirm;
+        }
+
+        public void RemoveCallbacks(IUIActions instance)
+        {
+            if (m_Wrapper.m_UIActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IUIActions instance)
+        {
+            foreach (var item in m_Wrapper.m_UIActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_UIActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public UIActions @UI => new UIActions(this);
     private int m_ControllerSchemeIndex = -1;
     public InputControlScheme ControllerScheme
     {
@@ -384,5 +472,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnFaceButton(InputAction.CallbackContext context);
         void OnConfirm(InputAction.CallbackContext context);
         void OnCancel(InputAction.CallbackContext context);
+    }
+    public interface IUIActions
+    {
+        void OnMenuConfirm(InputAction.CallbackContext context);
     }
 }

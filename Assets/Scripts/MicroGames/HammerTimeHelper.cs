@@ -1,10 +1,13 @@
 using System;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class HammerTimeHelper : MonoBehaviour
 {
+    public UnityEvent OnHammerHit;
+
     [Range(1, 359), Header("Values")]
     public float MaxHammerRotation = 135;
     [Range(0, 10)]
@@ -38,10 +41,10 @@ public class HammerTimeHelper : MonoBehaviour
     {
         RotateHammer();
 
-        if (!smashCharging && Gamepad.current.buttonSouth.wasPressedThisFrame)
+        if (Gamepad.current != null & !smashCharging && Gamepad.current.buttonSouth.wasPressedThisFrame)
             SmashStart();
 
-        if (smashCharging && Gamepad.current.buttonSouth.wasReleasedThisFrame)
+        if (Gamepad.current != null && smashCharging && Gamepad.current.buttonSouth.wasReleasedThisFrame)
             EndSmash();
 
         if (smashComplete)
@@ -81,6 +84,7 @@ public class HammerTimeHelper : MonoBehaviour
             smashComplete = true;
 
             smashedRigidbody.AddForce(ChargeStrengthMultiplier * chargeTime * Vector3.Slerp(transform.forward, Vector3.up, UpwardAngle));
+            OnHammerHit?.Invoke();
             
             Renderer[] renderers = GetComponentsInChildren<Renderer>();
 
