@@ -92,7 +92,12 @@ public class GameManager : MonoBehaviour
 
     private void ChooseMicroGame()
     {
-        activeMicroGame = MicroGames[UnityEngine.Random.Range(0, MicroGames.Length)];
+        Debug.Log("Choosing Micro Game...");
+
+        int randomIndex = UnityEngine.Random.Range(0, MicroGames.Length);
+        activeMicroGame = MicroGames[randomIndex];
+
+        Debug.Log("Random index: " + randomIndex);
 
         // Effect for choosing MicroGame
 

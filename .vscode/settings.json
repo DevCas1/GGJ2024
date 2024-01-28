@@ -56,5 +56,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "GGJ2024.sln"
+    "dotnet.defaultSolution": "GGJ2024.sln",
+    "cmake.configureOnOpen": false
 }
