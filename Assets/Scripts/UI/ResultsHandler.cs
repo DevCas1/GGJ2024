@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class ResultsHandler : MonoBehaviour
 {
+    public GameManager GameManager;
     public TextMeshProUGUI resultsText;
     public TextMeshProUGUI pointsFor;
     public TextMeshProUGUI goesTo;
@@ -36,11 +37,13 @@ public class ResultsHandler : MonoBehaviour
 
     void Awake()
     {
+        GameManager = FindObjectOfType<GameManager>();
         ClearAllLists();
         DeactivateAllTexts();
         currentStep = 0;
         GetAllResultValues();
         StartCoroutine("StepZero");
+
     }
 
     void DeactivateAllTexts()
@@ -91,10 +94,8 @@ public class ResultsHandler : MonoBehaviour
     {
         for (int i = 0; i < 4; i++)
         {
-            playerPoints.Add(Random.Range(0, 10));
-            playerBounces.Add(Random.Range(0, 10));
-            playerDistances.Add(Random.Range(0, 10));
-            playerChaosScores.Add(Random.Range(0, 10));
+            playerPoints.Add(GameManager.pointCollectors[i]);
+            
         }
         // Get the challenge values from the game manager and put them into the lists in order of players
         // Player 1 = 0
@@ -117,7 +118,7 @@ public class ResultsHandler : MonoBehaviour
                 goesTo.gameObject.SetActive(true);
                 StartCoroutine("AStep");
                 break;
-            case 2:
+            case 5:
                 currentChallenge = "longest distance";
                 currentWinner = playerDistances.IndexOf(playerDistances.Max());
                 currentPoints = 10;
@@ -144,7 +145,7 @@ public class ResultsHandler : MonoBehaviour
                 goesTo.gameObject.SetActive(true);
                 StartCoroutine("AStep");
                 break;
-            case 5:
+            case 2:
                 currentChallenge = "";
                 currentWinner = -1;
                 challengeText.text = "";

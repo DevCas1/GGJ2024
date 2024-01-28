@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4443180359761823793}
   - component: {fileID: 4016593791426808538}
   - component: {fileID: 3895926645399540567}
+  - component: {fileID: 3469037116931910676}
   m_Layer: 0
   m_Name: Fench3
   m_TagString: Untagged
@@ -84,3 +85,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &3469037116931910676
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249824136594852265}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.10130706, y: 0.09709602, z: 0.021051154}
+  m_Center: {x: -0.040516835, y: 0.04854801, z: 0}
